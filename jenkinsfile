@@ -1,0 +1,41 @@
+pipeline {
+    agent any 
+    
+    stages{
+        stage('Code'){
+            steps{
+                git url: 'https://github.com/anirudhadak2/3d-webapp-Kubernetes.git', branch: 'main' 
+            }
+        }
+        
+        stage('buildx'){
+            steps{
+           
+            sh 'mkdir -p ~/.docker/cli-plugins'
+            sh ' curl -SL https://github.com/docker/buildx/releases/download/v0.6.3/buildx-v0.6.3.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx'
+            sh 'chmod a+x ~/.docker/cli-plugins/docker-buildx'
+
+            }
+        }
+        
+        stage('Build'){
+            steps{
+                sh 'docker build -t anirudhadak2/new-app:ml-score-api  .'
+            }
+        }
+        stage('Push'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DockerHubPassword', usernameVariable: 'DockerHubUser')]) {
+        	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                 sh 'docker push anirudhadak2/new-app:ml-score-api'
+                }
+            }
+        }
+    
+        stage('Deploy'){
+            steps{
+                sh "docker-compose down && docker-compose up -d"
+            }
+        }
+    }
+}

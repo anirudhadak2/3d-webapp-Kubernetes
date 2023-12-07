@@ -2,6 +2,6 @@ version: '3.9'
 
 services:
   web:
-    image: 'rishikeshops/3d-webapp:latest'
+    image: 'anirudhadak2/new-app:ml-score-api'
     ports:
       - "5000:5000"

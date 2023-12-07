@@ -1,0 +1,307 @@
+Started by user anirudha
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipeline1
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Code)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/pipeline1/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/anirudhadak2/3d-webapp-Kubernetes.git # timeout=10
+Fetching upstream changes from https://github.com/anirudhadak2/3d-webapp-Kubernetes.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --tags --force --progress -- https://github.com/anirudhadak2/3d-webapp-Kubernetes.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision f59e1efafc39ebc84bd2299325737e4030d2a7ed (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f f59e1efafc39ebc84bd2299325737e4030d2a7ed # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main f59e1efafc39ebc84bd2299325737e4030d2a7ed # timeout=10
+Commit message: "Update docker-compose.yaml"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (buildx)
+[Pipeline] sh
++ mkdir -p /var/lib/jenkins/.docker/cli-plugins
+[Pipeline] sh
++ curl -SL https://github.com/docker/buildx/releases/download/v0.6.3/buildx-v0.6.3.linux-amd64 -o /var/lib/jenkins/.docker/cli-plugins/docker-buildx
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+ 34 58.4M   34 20.4M    0     0  20.5M      0  0:00:02 --:--:--  0:00:02 20.5M
+100 58.4M  100 58.4M    0     0  43.4M      0  0:00:01  0:00:01 --:--:--  108M
+[Pipeline] sh
++ chmod a+x /var/lib/jenkins/.docker/cli-plugins/docker-buildx
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ docker build -t anirudhadak2/new-app:ml-score-api .
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 199B 0.0s done
+#1 DONE 0.2s
+
+#2 [internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/python:3.6-slim
+#3 DONE 4.4s
+
+#7 [internal] load build context
+#7 DONE 0.0s
+
+#9 [1/5] FROM docker.io/library/python:3.6-slim@sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474
+#9 resolve docker.io/library/python:3.6-slim@sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474
+#9 resolve docker.io/library/python:3.6-slim@sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474 0.1s done
+#9 sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474 1.86kB / 1.86kB done
+#9 sha256:28028f6c3ce569a6405909ca76e85469fbb85c9ee93acd2fe5fe13f5e5e2c412 1.37kB / 1.37kB done
+#9 sha256:c1e40b69532f47ed3e92fabda2e711725befc34f118bd4dcbc4dec9f74a1e10c 8.54kB / 8.54kB done
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 0B / 31.36MB 0.2s
+#9 sha256:625294dad115cba7d8e323b53306f6daaa85d021e1e19c78970e24bd181ba689 0B / 1.08MB 0.2s
+#9 sha256:838e3a5a04bfd2abf562bafe0dddb30d987cd9fd4c3a666a18ecdeb0f04a3645 0B / 9.74MB 0.2s
+#9 ...
+
+#7 [internal] load build context
+#7 transferring context: 644.43kB 0.2s done
+#7 DONE 0.3s
+
+#9 [1/5] FROM docker.io/library/python:3.6-slim@sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474
+#9 sha256:625294dad115cba7d8e323b53306f6daaa85d021e1e19c78970e24bd181ba689 1.08MB / 1.08MB 1.1s
+#9 sha256:625294dad115cba7d8e323b53306f6daaa85d021e1e19c78970e24bd181ba689 1.08MB / 1.08MB 1.1s done
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 2.10MB / 31.36MB 1.3s
+#9 sha256:e93b4e59b6895b037b9248ef23a300776f9bb80eb0425c99608253489717da9c 0B / 235B 1.3s
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 5.24MB / 31.36MB 1.4s
+#9 sha256:838e3a5a04bfd2abf562bafe0dddb30d987cd9fd4c3a666a18ecdeb0f04a3645 1.05MB / 9.74MB 1.4s
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 10.49MB / 31.36MB 1.6s
+#9 sha256:838e3a5a04bfd2abf562bafe0dddb30d987cd9fd4c3a666a18ecdeb0f04a3645 5.24MB / 9.74MB 1.6s
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 18.87MB / 31.36MB 1.8s
+#9 sha256:838e3a5a04bfd2abf562bafe0dddb30d987cd9fd4c3a666a18ecdeb0f04a3645 9.74MB / 9.74MB 1.7s done
+#9 sha256:c4401b8c7f9e459a19eeaabd706ebb31c186a79e3aebf3ce8317b08dd0a8e7eb 0B / 2.50MB 1.8s
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 24.12MB / 31.36MB 1.9s
+#9 sha256:e93b4e59b6895b037b9248ef23a300776f9bb80eb0425c99608253489717da9c 235B / 235B 1.9s
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 28.31MB / 31.36MB 2.0s
+#9 sha256:e93b4e59b6895b037b9248ef23a300776f9bb80eb0425c99608253489717da9c 235B / 235B 1.9s done
+#9 sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 31.36MB / 31.36MB 2.0s done
+#9 extracting sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea
+#9 sha256:c4401b8c7f9e459a19eeaabd706ebb31c186a79e3aebf3ce8317b08dd0a8e7eb 2.50MB / 2.50MB 2.5s done
+#9 extracting sha256:a2abf6c4d29d43a4bf9fbb769f524d0fb36a2edab49819c1bf3e76f409f953ea 3.2s done
+#9 extracting sha256:625294dad115cba7d8e323b53306f6daaa85d021e1e19c78970e24bd181ba689
+#9 extracting sha256:625294dad115cba7d8e323b53306f6daaa85d021e1e19c78970e24bd181ba689 0.2s done
+#9 extracting sha256:838e3a5a04bfd2abf562bafe0dddb30d987cd9fd4c3a666a18ecdeb0f04a3645
+#9 extracting sha256:838e3a5a04bfd2abf562bafe0dddb30d987cd9fd4c3a666a18ecdeb0f04a3645 1.0s done
+#9 extracting sha256:e93b4e59b6895b037b9248ef23a300776f9bb80eb0425c99608253489717da9c
+#9 extracting sha256:e93b4e59b6895b037b9248ef23a300776f9bb80eb0425c99608253489717da9c done
+#9 extracting sha256:c4401b8c7f9e459a19eeaabd706ebb31c186a79e3aebf3ce8317b08dd0a8e7eb
+#9 extracting sha256:c4401b8c7f9e459a19eeaabd706ebb31c186a79e3aebf3ce8317b08dd0a8e7eb 0.4s done
+#9 DONE 7.6s
+
+#8 [2/5] WORKDIR /usr/src/app
+#8 DONE 0.1s
+
+#6 [3/5] COPY . .
+#6 DONE 0.2s
+
+#5 [4/5] RUN pip install -r requirements.txt
+#5 2.989 Collecting flask
+#5 3.085   Downloading Flask-2.0.3-py3-none-any.whl (95 kB)
+#5 3.331 Collecting pipenv
+#5 3.364   Downloading pipenv-2022.4.8-py2.py3-none-any.whl (3.6 MB)
+#5 3.752 Collecting Werkzeug>=2.0
+#5 3.781   Downloading Werkzeug-2.0.3-py3-none-any.whl (289 kB)
+#5 3.828 Collecting itsdangerous>=2.0
+#5 3.858   Downloading itsdangerous-2.0.1-py3-none-any.whl (18 kB)
+#5 3.939 Collecting click>=7.1.2
+#5 3.968   Downloading click-8.0.4-py3-none-any.whl (97 kB)
+#5 4.025 Collecting Jinja2>=3.0
+#5 4.058   Downloading Jinja2-3.0.3-py3-none-any.whl (133 kB)
+#5 4.239 Collecting certifi
+#5 4.270   Downloading certifi-2023.11.17-py3-none-any.whl (162 kB)
+#5 4.284 Requirement already satisfied: setuptools>=36.2.1 in /usr/local/lib/python3.6/site-packages (from pipenv->-r requirements.txt (line 2)) (57.5.0)
+#5 4.568 Collecting virtualenv-clone>=0.2.5
+#5 4.603   Downloading virtualenv_clone-0.5.7-py3-none-any.whl (6.6 kB)
+#5 4.625 Requirement already satisfied: pip>=18.0 in /usr/local/lib/python3.6/site-packages (from pipenv->-r requirements.txt (line 2)) (21.2.4)
+#5 4.869 Collecting virtualenv
+#5 4.916   Downloading virtualenv-20.17.1-py3-none-any.whl (8.8 MB)
+#5 5.384 Collecting importlib-metadata
+#5 5.411   Downloading importlib_metadata-4.8.3-py3-none-any.whl (17 kB)
+#5 5.826 Collecting MarkupSafe>=2.0
+#5 5.857   Downloading MarkupSafe-2.0.1-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (30 kB)
+#5 5.908 Collecting dataclasses
+#5 5.942   Downloading dataclasses-0.8-py3-none-any.whl (19 kB)
+#5 6.049 Collecting typing-extensions>=3.6.4
+#5 6.077   Downloading typing_extensions-4.1.1-py3-none-any.whl (26 kB)
+#5 6.163 Collecting zipp>=0.5
+#5 6.191   Downloading zipp-3.6.0-py3-none-any.whl (5.3 kB)
+#5 6.317 Collecting filelock<4,>=3.4.1
+#5 6.353   Downloading filelock-3.4.1-py3-none-any.whl (9.9 kB)
+#5 6.473 Collecting importlib-resources>=5.4
+#5 6.503   Downloading importlib_resources-5.4.0-py3-none-any.whl (28 kB)
+#5 6.581 Collecting platformdirs<3,>=2.4
+#5 6.613   Downloading platformdirs-2.4.0-py3-none-any.whl (14 kB)
+#5 6.672 Collecting distlib<1,>=0.3.6
+#5 6.708   Downloading distlib-0.3.7-py2.py3-none-any.whl (468 kB)
+#5 6.968 Installing collected packages: zipp, typing-extensions, platformdirs, MarkupSafe, importlib-resources, importlib-metadata, filelock, distlib, dataclasses, Werkzeug, virtualenv-clone, virtualenv, Jinja2, itsdangerous, click, certifi, pipenv, flask
+#5 10.26 Successfully installed Jinja2-3.0.3 MarkupSafe-2.0.1 Werkzeug-2.0.3 certifi-2023.11.17 click-8.0.4 dataclasses-0.8 distlib-0.3.7 filelock-3.4.1 flask-2.0.3 importlib-metadata-4.8.3 importlib-resources-5.4.0 itsdangerous-2.0.1 pipenv-2022.4.8 platformdirs-2.4.0 typing-extensions-4.1.1 virtualenv-20.17.1 virtualenv-clone-0.5.7 zipp-3.6.0
+#5 10.26 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#5 10.41 WARNING: You are using pip version 21.2.4; however, version 21.3.1 is available.
+#5 10.41 You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+#5 DONE 10.9s
+
+#4 [5/5] RUN pipenv install
+#4 2.167 Creating a virtualenv for this project...
+#4 2.167 Pipfile: /usr/src/app/Pipfile
+#4 2.282 Using /usr/local/bin/python (3.6.15) to create virtualenv...
+#4 2.289 
+⠋ Creating virtual environment...
+⠙ Creating virtual environment...
+⠹ Creating virtual environment...
+⠸ Creating virtual environment...
+⠼ Creating virtual environment...
+⠴ Creating virtual environment...
+⠦ Creating virtual environment...
+⠧ Creating virtual environment...
+⠇ Creating virtual environment...
+⠏ Creating virtual environment...
+⠋ Creating virtual environment...
+⠙ Creating virtual environment...
+⠹ Creating virtual environment...
+⠸ Creating virtual environment...
+⠼ Creating virtual environment...
+⠴ Creating virtual environment...
+⠦ Creating virtual environment...
+⠧ Creating virtual environment...
+⠇ Creating virtual environment...
+⠏ Creating virtual environment...
+⠋ Creating virtual environment...
+⠙ Creating virtual environment...
+⠹ Creating virtual environment...
+⠸ Creating virtual environment...
+⠼ Creating virtual environment...
+⠴ Creating virtual environment...
+⠦ Creating virtual environment...
+⠧ Creating virtual environment...
+⠇ Creating virtual environment...
+⠏ Creating virtual environment...created virtual environment CPython3.6.15.final.0-64 in 2117ms
+#4 4.898   creator CPython3Posix(dest=/root/.local/share/virtualenvs/app-lp47FrbD, clear=False, no_vcs_ignore=False, global=False)
+#4 4.898   seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/root/.local/share/virtualenv)
+#4 4.898     added seed packages: pip==21.3.1, setuptools==59.6.0, wheel==0.37.1
+#4 4.898   activators BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator
+#4 4.898 
+#4 4.922 ✔ Successfully created virtual environment! 
+#4 6.327 requirements.txt found in /usr/src/app instead of Pipfile! Converting...
+#4 6.327 Virtualenv location: /root/.local/share/virtualenvs/app-lp47FrbD
+⠧ Importing requirements...✔ Success! 
+#4 7.961 Warning: Your Pipfile now contains pinned versions, if your requirements.txt did. 
+#4 7.961 We recommend updating your Pipfile to specify the "*" version, instead.
+#4 7.971 Pipfile.lock not found, creating...
+#4 7.972 Locking [dev-packages] dependencies...
+#4 7.973 Locking [packages] dependencies...
+#4 7.982 
+⠋
+Building requirements...
+#4 7.996  Locking...
+Resolving dependencies...
+⠇ Locking...
+⠏ Locking...
+⠋ Locking...
+⠙ Locking...
+⠹ Locking...
+⠸ Locking...
+⠼ Locking...
+⠴ Locking...
+⠦ Locking...
+⠧ Locking...
+⠇ Locking...
+⠏ Locking...
+⠋ Locking...
+⠙ Locking...
+⠹ Locking...✔ Success! 
+#4 250.7 Updated Pipfile.lock (42114a)!
+#4 250.7 Installing dependencies from Pipfile.lock (42114a)...
+#4 442.2 To activate this project's virtualenv, run pipenv shell.
+#4 442.2 Alternatively, run a command inside the virtualenv with pipenv run.
+#4 DONE 442.5s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 3.9s done
+#10 writing image sha256:e0dde5491928f86866061308b2a342a32355f129f994c9d745c6c5eebd11c95b
+#10 writing image sha256:e0dde5491928f86866061308b2a342a32355f129f994c9d745c6c5eebd11c95b 0.0s done
+#10 naming to docker.io/anirudhadak2/new-app:ml-score-api 0.0s done
+#10 DONE 4.0s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push)
+[Pipeline] withCredentials
+Masking supported pattern matches of $DockerHubPassword
+[Pipeline] {
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DockerHubPassword]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ docker login -u anirudhadak2 -p ****
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] sh
++ docker push anirudhadak2/new-app:ml-score-api
+The push refers to repository [docker.io/anirudhadak2/new-app]
+364d1628cbcc: Preparing
+3a64f716ea53: Preparing
+5eafde1d6f09: Preparing
+efd8edd5a382: Preparing
+61e79b15f086: Preparing
+1d8d050c9cb8: Preparing
+2119d4d70feb: Preparing
+d0fa20bfdce7: Preparing
+2edcec3590a4: Preparing
+1d8d050c9cb8: Waiting
+2119d4d70feb: Waiting
+d0fa20bfdce7: Waiting
+2edcec3590a4: Waiting
+61e79b15f086: Mounted from library/python
+efd8edd5a382: Pushed
+5eafde1d6f09: Pushed
+1d8d050c9cb8: Mounted from library/python
+2119d4d70feb: Mounted from library/python
+d0fa20bfdce7: Mounted from library/python
+2edcec3590a4: Mounted from library/python
+3a64f716ea53: Pushed
+364d1628cbcc: Pushed
+ml-score-api: digest: sha256:b2a54db6d6f51333c58b8cbc02f33efa8364120e698be88c588b2b6c90ebcb99 size: 2210
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] sh
++ docker-compose down
++ docker-compose up -d
+ Network pipeline1_default  Creating
+ Network pipeline1_default  Created
+ Container pipeline1-web-1  Creating
+ Container pipeline1-web-1  Created
+ Container pipeline1-web-1  Starting
+ Container pipeline1-web-1  Started
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

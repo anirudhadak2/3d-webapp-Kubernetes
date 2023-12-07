@@ -16,7 +16,7 @@ spec:
         app: my-api
     spec:
       containers:
-        - image: ritesh2000/my-api:latest
+        - image: anirudhadak2/new-app:ml-score-api
           name: my-api
           ports:
             - containerPort: 5000
